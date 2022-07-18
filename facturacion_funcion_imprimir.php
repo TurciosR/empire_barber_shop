@@ -1805,6 +1805,7 @@ function print_vale($id_movimiento){
 	return ($info_factura);
 
 }
+
 function print_corte($id_corte){
 	include_once "_core.php";
 	//EMPRESA
@@ -1835,7 +1836,7 @@ function print_corte($id_corte){
 		c.totalnodev, c.totalnoanu, c.depositos, c.vales, c.tarjetas, c.depositon, c.valen, c.tarjetan, c.ingresos,
 		c.tcredito, c.ncortex, c.ncortez, c.ncortezm, c.cerrado, c.id_empleado, c.id_sucursal, c.id_apertura,
 		c.fecha_corte, c.hora_corte, c.tipo_corte,e.nombre, c.monto_ch, c.tiket, c.turno, c.retencion,
-		c.tot_pago_tarjeta, c.tot_pago_bitcoin, c.tot_pago_transf
+		c.tot_ventas_credito, c.tot_pago_tarjeta, c.tot_pago_bitcoin, c.tot_pago_transf
 		FROM controlcaja AS c
 		JOIN usuario AS e ON(e.id_usuario=c.id_empleado)
 		WHERE c.id_corte='$id_corte'";
@@ -1849,7 +1850,7 @@ function print_corte($id_corte){
 		c.totalnodev, c.totalnoanu, c.depositos, c.vales, c.tarjetas, c.depositon, c.valen, c.tarjetan, c.ingresos,
 		c.tcredito, c.ncortex, c.ncortez, c.ncortezm, c.cerrado, c.id_empleado, c.id_sucursal, c.id_apertura,
 		c.fecha_corte, c.hora_corte, c.tipo_corte,em.nombre, c.monto_ch, c.tiket, c.turno, c.retencion,
-		c.tot_pago_tarjeta, c.tot_pago_bitcoin, c.tot_pago_transf
+		c.tot_ventas_credito, c.tot_pago_tarjeta, c.tot_pago_bitcoin, c.tot_pago_transf
 		FROM controlcaja AS c
 		JOIN usuario AS e ON(e.id_usuario=c.id_empleado)
 		LEFT JOIN empleado as em on(e.id_empleado=em.id_empleado)
@@ -1893,6 +1894,7 @@ function print_corte($id_corte){
 	/**
 	 * TOTALIZADO OTROS PAGOS
 	 */
+	$tot_ventas_credito = $row['tot_ventas_credito'];
 	$tot_pago_tarjeta = $row['tot_pago_tarjeta'];
 	$tot_pago_bitcoin = $row['tot_pago_bitcoin'];
 	$tot_pago_transf = $row['tot_pago_transf'];
@@ -2014,7 +2016,7 @@ function print_corte($id_corte){
 		  }
 			$info_factura.=$line1;
 			$sp1=len_num($total_cobros,$n);
-			$info_factura.=$esp_init0."(+) COBROS CREDITO $:         ".$sp1.number_format($total_cobros, 2, '.', ',')."\n";
+			$info_factura.=$esp_init0."(+) COBROS CREDITO $:".$sp1.number_format($total_cobros, 2, '.', ',')."\n";
 		}
 
 		$totalcaja = $totalcaja + $total_cobros;
@@ -2029,6 +2031,8 @@ function print_corte($id_corte){
 		/**
 		 * TOTALIZADO OTROS PAGOS
 		 */
+		$sp1=len_num(number_format($tot_ventas_credito,2,".",""),$n);
+		$info_factura.=$esp_init0."(-) VENTAS AL CREDITO $:".str_pad(number_format($tot_ventas_credito,2,".",""),7," ",STR_PAD_LEFT)."\n";
 		$sp1=len_num(number_format($tot_pago_tarjeta,2,".",""),$n);
 		$info_factura.=$esp_init0."(-) PAGOS TARJETA $:".str_pad(number_format($tot_pago_tarjeta,2,".",""),11," ",STR_PAD_LEFT)."\n";
 		$sp1=len_num(number_format($tot_pago_bitcoin,2,".",""),$n);

@@ -239,8 +239,7 @@ $admin=$_SESSION["admin"];
 													AND fecha = '$fecha_actual' 
 													AND anulada = 0 
 													AND finalizada = 1 
-													AND caja!=0 
-													AND credito=0
+													AND caja!=0
 													AND id_sucursal='$id_sucursal'");
 
 												$row_monto = _fetch_array($sql_monto);

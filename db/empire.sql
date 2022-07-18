@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 08-07-2022 a las 16:44:06
+-- Tiempo de generación: 18-07-2022 a las 12:42:17
 -- Versión del servidor: 10.5.15-MariaDB-0+deb11u1
 -- Versión de PHP: 7.4.28
 
@@ -113,7 +113,8 @@ INSERT INTO `apertura_caja` (`id_server`, `unique_id`, `id_sucursal`, `id_apertu
 (0, 'S62c711bb8cfd98.07394618', 1, 1, '2022-07-07', '11:02:51', 1, 0, 1, 2, 100, '0.00', '0.00', 0, 0, 0, 0, 0, 100),
 (0, 'S62c848ccdee425.23917143', 1, 2, '2022-07-08', '09:10:04', 1, 1, 0, 2, 100, '0.00', '0.00', 0, 0, 0, 0, 0, 672),
 (0, 'S62c86d38530a98.92014315', 1, 3, '2022-07-08', '11:45:28', 1, 1, 1, 3, 20, '0.00', '0.00', 0, 0, 0, 0, 0, 1692.15),
-(0, 'S62c86f4a81d630.15127426', 1, 4, '2022-07-08', '11:54:18', 1, 1, 1, 4, 20, '0.00', '0.00', 0, 0, 0, 0, 1, 0);
+(0, 'S62c86f4a81d630.15127426', 1, 4, '2022-07-08', '11:54:18', 1, 0, 1, 5, 20, '0.00', '0.00', 0, 0, 0, 0, 0, 20),
+(0, 'S62d598dc21e668.87551147', 1, 5, '2022-07-18', '11:31:08', 1, 1, 1, 1, 10, '0.00', '0.00', 0, 0, 0, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -163,7 +164,7 @@ CREATE TABLE `caja` (
 --
 
 INSERT INTO `caja` (`id_server`, `unique_id`, `id_sucursal`, `id_caja`, `nombre`, `serie`, `desde`, `hasta`, `correlativo_dispo`, `resolucion`, `fecha`, `activa`) VALUES
-(1, 'O60d7df1abdfca2.64813667', 1, 1, 'Caja 1', 'A', 1, 1000000, 16, 'RES-000-0001', '2018-06-21', 1);
+(1, 'O60d7df1abdfca2.64813667', 1, 1, 'Caja 1', 'A', 1, 1000000, 18, 'RES-000-0001', '2018-06-21', 1);
 
 -- --------------------------------------------------------
 
@@ -512,6 +513,7 @@ CREATE TABLE `controlcaja` (
   `tipo_corte` varchar(20) NOT NULL,
   `monto_ch` float NOT NULL,
   `retencion` float NOT NULL,
+  `tot_ventas_credito` decimal(10,2) DEFAULT 0.00,
   `tot_pago_tarjeta` decimal(10,2) DEFAULT 0.00,
   `tot_pago_bitcoin` decimal(10,2) DEFAULT 0.00,
   `tot_pago_transf` decimal(10,2) DEFAULT 0.00,
@@ -534,17 +536,18 @@ CREATE TABLE `controlcaja` (
 -- Volcado de datos para la tabla `controlcaja`
 --
 
-INSERT INTO `controlcaja` (`id_server`, `unique_id`, `id_sucursal`, `id_corte`, `fecha`, `id_empleado`, `id_apertura`, `caja`, `turno`, `cajero`, `fecha_corte`, `hora_corte`, `tiket`, `ticket_e`, `tinicio`, `tfinal`, `totalnot`, `texento`, `tgravado`, `totalt`, `finicio`, `ffinal`, `totalnof`, `fexento`, `fgravado`, `totalf`, `cfinicio`, `cffinal`, `totalnocf`, `cfexento`, `cfgravado`, `totalcf`, `rinicio`, `rfinal`, `totalnor`, `rexento`, `rgravado`, `totalr`, `cashinicial`, `vtacontado`, `vtaefectivo`, `vtatcredito`, `totalgral`, `subtotal`, `cashfinal`, `diferencia`, `totalnodev`, `totalnoanu`, `depositos`, `vales`, `tarjetas`, `depositon`, `valen`, `tarjetan`, `ingresos`, `tcredito`, `ncortex`, `ncortez`, `ncortezm`, `cerrado`, `tipo_corte`, `monto_ch`, `retencion`, `tot_pago_tarjeta`, `tot_pago_bitcoin`, `tot_pago_transf`, `tinicio_e`, `tfinal_e`, `tdoctexe`, `tottexe`, `finicio_e`, `ffinal_e`, `tdocfexe`, `totfexe`, `cfinicio_e`, `cffinal_e`, `tdoccfexe`, `totcfexe`, `czxe`) VALUES
-(0, 'S62c84898b1da92.77646894', 1, 1, '', 1, 1, NULL, 1, NULL, '2022-07-07', '21:00:00', 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, NULL, 0, NULL, 100, NULL, 100, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'C', 0, 0, '0.00', '0.00', '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
-(0, 'S62c862b44412a0.59891039', 1, 2, '', 1, 2, '1', 1, NULL, '2022-07-08', '11:00:07', 0, 0, 2, 9, 8, NULL, NULL, 500.5, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 100, NULL, 0, NULL, 421.75, NULL, 421.75, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'C', 0, 0, '0.00', '0.00', '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
-(0, 'S62c86a344e9f08.19787218', 1, 3, '', 1, 2, '1', 1, NULL, '2022-07-08', '11:32:16', 0, 0, 2, 9, 8, NULL, NULL, 500.5, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 100, NULL, 0, NULL, 421.75, NULL, 421.75, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'C', 0, 0, '71.50', '35.75', '71.50', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
-(0, 'S62c86acedd0a84.27885637', 1, 4, '', 1, 2, '1', 1, NULL, '2022-07-08', '11:35:00', 0, 0, 2, 9, 8, NULL, NULL, 500.5, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 100, NULL, 0, NULL, 421.75, NULL, 421.75, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'C', 0, 0, '71.50', '35.75', '71.50', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
-(0, 'S62c86c2f1d6052.82554216', 1, 5, '', 1, 2, '1', 1, NULL, '2022-07-08', '11:40:49', 0, 0, 2, 10, 9, NULL, NULL, 572, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 100, NULL, 0, NULL, 421.75, NULL, 421.75, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'C', 0, 0, '143.00', '35.75', '71.50', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
-(0, 'S62c86ca0c06226.36467889', 1, 6, '2022:07:08', 1, 2, NULL, 1, NULL, '2022-07-08', '11:42:52', 0, 0, 2, 10, 0, 0, 321.75, 321.75, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, NULL, 0, NULL, 421.75, NULL, 421.75, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'C', 0, 0, '0.00', '0.00', '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
-(0, 'S62c86cb90cf516.48105389', 1, 7, '', 0, 2, '1', 2, NULL, '2022-07-08', '11:43:14', 0, 0, 2, 10, 9, NULL, NULL, 572, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 100, NULL, 0, NULL, 421.75, NULL, 421.75, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'C', 0, 0, '143.00', '35.75', '71.50', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
-(0, 'S62c86d186e8ab8.06422046', 1, 8, '', 0, 2, '1', 2, NULL, '2022-07-08', '11:44:52', 11, 0, 2, 10, 9, NULL, NULL, 572, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 100, NULL, 0, NULL, 672, NULL, 672, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Z', 0, 0, '143.00', '35.75', '71.50', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
-(0, 'S62c86ef85069e3.62409161', 1, 9, '', 1, 3, '1', 3, NULL, '2022-07-08', '11:52:33', 0, 0, 12, 14, 3, NULL, NULL, 1672.15, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 20, NULL, 0, NULL, 1527.15, NULL, 1527.15, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'C', 0, 0, '150.00', '15.00', '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
-(0, 'S62c86f1683bba2.46880801', 1, 10, '', 1, 3, '1', 3, NULL, '2022-07-08', '11:53:22', 15, 0, 12, 14, 3, NULL, NULL, 1672.15, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 20, NULL, 0, NULL, 1692.15, NULL, 1692.15, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Z', 0, 0, '150.00', '15.00', '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0);
+INSERT INTO `controlcaja` (`id_server`, `unique_id`, `id_sucursal`, `id_corte`, `fecha`, `id_empleado`, `id_apertura`, `caja`, `turno`, `cajero`, `fecha_corte`, `hora_corte`, `tiket`, `ticket_e`, `tinicio`, `tfinal`, `totalnot`, `texento`, `tgravado`, `totalt`, `finicio`, `ffinal`, `totalnof`, `fexento`, `fgravado`, `totalf`, `cfinicio`, `cffinal`, `totalnocf`, `cfexento`, `cfgravado`, `totalcf`, `rinicio`, `rfinal`, `totalnor`, `rexento`, `rgravado`, `totalr`, `cashinicial`, `vtacontado`, `vtaefectivo`, `vtatcredito`, `totalgral`, `subtotal`, `cashfinal`, `diferencia`, `totalnodev`, `totalnoanu`, `depositos`, `vales`, `tarjetas`, `depositon`, `valen`, `tarjetan`, `ingresos`, `tcredito`, `ncortex`, `ncortez`, `ncortezm`, `cerrado`, `tipo_corte`, `monto_ch`, `retencion`, `tot_ventas_credito`, `tot_pago_tarjeta`, `tot_pago_bitcoin`, `tot_pago_transf`, `tinicio_e`, `tfinal_e`, `tdoctexe`, `tottexe`, `finicio_e`, `ffinal_e`, `tdocfexe`, `totfexe`, `cfinicio_e`, `cffinal_e`, `tdoccfexe`, `totcfexe`, `czxe`) VALUES
+(0, 'S62c84898b1da92.77646894', 1, 1, '', 1, 1, NULL, 1, NULL, '2022-07-07', '21:00:00', 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, NULL, 0, NULL, 100, NULL, 100, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'C', 0, 0, '0.00', '0.00', '0.00', '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
+(0, 'S62c862b44412a0.59891039', 1, 2, '', 1, 2, '1', 1, NULL, '2022-07-08', '11:00:07', 0, 0, 2, 9, 8, NULL, NULL, 500.5, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 100, NULL, 0, NULL, 421.75, NULL, 421.75, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'C', 0, 0, '0.00', '0.00', '0.00', '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
+(0, 'S62c86a344e9f08.19787218', 1, 3, '', 1, 2, '1', 1, NULL, '2022-07-08', '11:32:16', 0, 0, 2, 9, 8, NULL, NULL, 500.5, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 100, NULL, 0, NULL, 421.75, NULL, 421.75, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'C', 0, 0, '0.00', '71.50', '35.75', '71.50', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
+(0, 'S62c86acedd0a84.27885637', 1, 4, '', 1, 2, '1', 1, NULL, '2022-07-08', '11:35:00', 0, 0, 2, 9, 8, NULL, NULL, 500.5, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 100, NULL, 0, NULL, 421.75, NULL, 421.75, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'C', 0, 0, '0.00', '71.50', '35.75', '71.50', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
+(0, 'S62c86c2f1d6052.82554216', 1, 5, '', 1, 2, '1', 1, NULL, '2022-07-08', '11:40:49', 0, 0, 2, 10, 9, NULL, NULL, 572, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 100, NULL, 0, NULL, 421.75, NULL, 421.75, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'C', 0, 0, '0.00', '143.00', '35.75', '71.50', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
+(0, 'S62c86ca0c06226.36467889', 1, 6, '2022:07:08', 1, 2, NULL, 1, NULL, '2022-07-08', '11:42:52', 0, 0, 2, 10, 0, 0, 321.75, 321.75, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, NULL, 0, NULL, 421.75, NULL, 421.75, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'C', 0, 0, '0.00', '0.00', '0.00', '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
+(0, 'S62c86cb90cf516.48105389', 1, 7, '', 0, 2, '1', 2, NULL, '2022-07-08', '11:43:14', 0, 0, 2, 10, 9, NULL, NULL, 572, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 100, NULL, 0, NULL, 421.75, NULL, 421.75, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'C', 0, 0, '0.00', '143.00', '35.75', '71.50', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
+(0, 'S62c86d186e8ab8.06422046', 1, 8, '', 0, 2, '1', 2, NULL, '2022-07-08', '11:44:52', 11, 0, 2, 10, 9, NULL, NULL, 572, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 100, NULL, 0, NULL, 672, NULL, 672, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Z', 0, 0, '0.00', '143.00', '35.75', '71.50', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
+(0, 'S62c86ef85069e3.62409161', 1, 9, '', 1, 3, '1', 3, NULL, '2022-07-08', '11:52:33', 0, 0, 12, 14, 3, NULL, NULL, 1672.15, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 20, NULL, 0, NULL, 1527.15, NULL, 1527.15, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'C', 0, 0, '0.00', '150.00', '15.00', '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
+(0, 'S62c86f1683bba2.46880801', 1, 10, '', 1, 3, '1', 3, NULL, '2022-07-08', '11:53:22', 15, 0, 12, 14, 3, NULL, NULL, 1672.15, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 20, NULL, 0, NULL, 1692.15, NULL, 1692.15, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'Z', 0, 0, '0.00', '150.00', '15.00', '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0),
+(0, 'S62d598d507b870.85826577', 1, 11, '', 1, 4, NULL, 4, NULL, '2022-07-08', '21:00:00', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, NULL, 0, NULL, 20, NULL, 20, 0, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 'C', 0, 0, '0.00', '0.00', '0.00', '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0, 0, 0, '0.00', 0);
 
 -- --------------------------------------------------------
 
@@ -652,6 +655,13 @@ CREATE TABLE `credito` (
   `saldo` float NOT NULL,
   `finalizada` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `credito`
+--
+
+INSERT INTO `credito` (`id_server`, `unique_id`, `id_sucursal`, `id_credito`, `id_cliente`, `fecha`, `tipo_doc`, `numero_doc`, `id_factura`, `dias`, `total`, `abono`, `saldo`, `finalizada`) VALUES
+(0, 'S62d598f1e53fa8.56258026', 1, 1, 2, '2022-07-18', 'TIK', '0000000016_TIK', 14, 30, 15, 0, 15, 0);
 
 -- --------------------------------------------------------
 
@@ -781,7 +791,9 @@ INSERT INTO `detalle_apertura` (`id_server`, `unique_id`, `id_sucursal`, `id_det
 (0, 'S62c848ccf09572.44044425', 1, 3, 2, 1, 1, '2022-07-08', '09:10:04', 0, 1),
 (0, 'S62c86ca0ceb2e0.82173082', 1, 4, 2, 2, 1, '2022-07-08', '11:42:52', 0, 1),
 (0, 'S62c86d385b08c8.24423079', 1, 5, 3, 3, 1, '2022-07-08', '11:45:28', 0, 1),
-(0, 'S62c86f4a88b5a6.54757046', 1, 6, 4, 4, 1, '2022-07-08', '11:54:18', 1, 1);
+(0, 'S62c86f4a88b5a6.54757046', 1, 6, 4, 4, 1, '2022-07-08', '11:54:18', 0, 1),
+(0, 'S62d598d51f76b7.44595425', 0, 7, 4, 5, 0, '2022-07-08', '21:00:00', 0, 0),
+(0, 'S62d598dc402370.48548411', 1, 8, 5, 1, 1, '2022-07-18', '11:31:08', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1057,7 +1069,9 @@ INSERT INTO `factura` (`id_server`, `unique_id`, `id_sucursal`, `id_factura`, `i
 (0, 'S62c86c05b3e7a0.76219173', 1, 10, -1, '2022-07-08', '0000000010_TIK', '', 0, 71.5, 71.5, 71.5, 0, 0, 0, '0.00', 71.5, 71.5, 0, 0, 1, 0, 10, 1, 1, 'TICKET', 'A', '0', '10', '11:40:21', 1, 2, 2, 2, 0, 0, 0, 'TIK', 1, '0', '0', '', '', 0, '', '0.00', NULL, NULL, '87287872-2', '2323232332'),
 (0, 'S62c86db9dcfaf9.21920916', 1, 11, -1, '2022-07-08', '0000000012_TIK', '', 0, 1507.15, 1507.15, 1507.15, 0, 0, 0, '0.00', 1507.15, 1507.15, 0, 0, 1, 0, 11, 1, 1, 'TICKET', 'A', '0', '12', '11:47:37', 3, 3, 3, 0, 0, 0, 0, 'TIK', 1, '0', '0', '', '', 0, '', '0.00', NULL, NULL, '', ''),
 (0, 'S62c86e57bb1875.23167942', 1, 12, 2, '2022-07-08', '0000000013_TIK', '', 0, 150, 150, 150, 0, 0, 0, '0.00', 150, 150, 0, 0, 1, 0, 12, 1, 1, 'TICKET', 'A', '0', '13', '11:50:15', 3, 3, 3, 2, 0, 0, 0, 'TIK', 1, '0', '0', '', '', 0, '', '0.00', NULL, NULL, '05203761-3', '13D23D3'),
-(0, 'S62c86e9fcdf264.00535513', 1, 13, 2, '2022-07-08', '0000000014_TIK', '', 0, 15, 15, 15, 0, 0, 0, '0.00', 15, 15, 0, 0, 1, 0, 7, 1, 1, 'TICKET', 'A', '0', '14', '11:51:27', 3, 3, 3, 3, 0, 0, 0, 'TIK', 1, '0', '0', '', '', 0, '', '0.00', NULL, NULL, '05203761-3', 'WFEFJ 4 J43F');
+(0, 'S62c86e9fcdf264.00535513', 1, 13, 2, '2022-07-08', '0000000014_TIK', '', 0, 15, 15, 15, 0, 0, 0, '0.00', 15, 15, 0, 0, 1, 0, 7, 1, 1, 'TICKET', 'A', '0', '14', '11:51:27', 3, 3, 3, 3, 0, 0, 0, 'TIK', 1, '0', '0', '', '', 0, '', '0.00', NULL, NULL, '05203761-3', 'WFEFJ 4 J43F'),
+(0, 'S62d598f1df05e2.90341580', 1, 14, 2, '2022-07-18', '0000000016_TIK', '', 0, 15, 15, 15, 0, 0, 0, '0.00', 15, 15, 0, 0, 1, 0, 10, 1, 1, 'TICKET', 'A', '0', '16', '11:31:29', 1, 5, 5, 1, 0, 15, 0, 'TIK', 1, '0', '0', '', '', 0, '', '0.00', NULL, NULL, '', ''),
+(0, 'S62d5990036d7c2.89991338', 1, 15, -1, '2022-07-18', '0000000017_TIK', '', 0, 15, 15, 15, 0, 0, 0, '0.00', 15, 15, 0, 0, 1, 0, 6, 1, 1, 'TICKET', 'A', '0', '17', '11:31:44', 1, 5, 5, 0, 0, 0, 0, 'TIK', 1, '0', '0', '', '', 0, '', '0.00', NULL, NULL, '', '');
 
 -- --------------------------------------------------------
 
@@ -1107,7 +1121,9 @@ INSERT INTO `factura_detalle` (`id_server`, `unique_id`, `id_sucursal`, `id_fact
 (0, 'S62c86db9e68184.97936376', 1, 15, 11, 1, '', 0, '1.0000', '7.1500', '7.15', 0, 1, 'PRODUCTO', 0, '2022-07-08', 0, '11:47:37', 1, 0, 0),
 (0, 'S62c86db9ecf140.33686660', 1, 16, 11, -9999, 'SERVICIO DE PRUEBA', 0, '100.0000', '15.0000', '1500.00', 0, 1, 'PRODUCTO', 0, '2022-07-08', 0, '11:47:37', -9999, 0, 0),
 (0, 'S62c86e57bb8b27.92501546', 1, 17, 12, -9999, 'SERVICIO DE PRUEBA', 0, '10.0000', '15.0000', '150.00', 0, 1, 'PRODUCTO', 0, '2022-07-08', 0, '11:50:15', -9999, 0, 0),
-(0, 'S62c86e9fe42be5.22669608', 1, 18, 13, -9999, 'SERVICIO DE PRUEBA', 0, '1.0000', '15.0000', '15.00', 0, 1, 'PRODUCTO', 0, '2022-07-08', 0, '11:51:27', -9999, 0, 0);
+(0, 'S62c86e9fe42be5.22669608', 1, 18, 13, -9999, 'SERVICIO DE PRUEBA', 0, '1.0000', '15.0000', '15.00', 0, 1, 'PRODUCTO', 0, '2022-07-08', 0, '11:51:27', -9999, 0, 0),
+(0, 'S62d598f1e9cdc8.90699959', 1, 19, 14, -9999, 'SERVICIO DE PRUEBA', 0, '1.0000', '15.0000', '15.00', 0, 1, 'PRODUCTO', 0, '2022-07-18', 0, '11:31:29', -9999, 0, 0),
+(0, 'S62d59900380903.26230404', 1, 20, 15, -9999, 'SERVICIO DE PRUEBA', 0, '1.0000', '15.0000', '15.00', 0, 1, 'PRODUCTO', 0, '2022-07-18', 0, '11:31:44', -9999, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1484,7 +1500,9 @@ INSERT INTO `movimiento_producto` (`id_server`, `unique_id`, `id_sucursal`, `id_
 (0, 'S62c86c05b45e23.50833641', 1, 13, '0000000010_TIK', 'VENTA', 71.5, 'SALIDA', 'TIK', 10, 1, '2022-07-08', '11:40:21', 1, 1, 0, 0, 0, 10, 0, '0', '0'),
 (0, 'S62c86db9dd6c12.72244089', 1, 14, '0000000012_TIK', 'VENTA', 1507.15, 'SALIDA', 'TIK', 12, 1, '2022-07-08', '11:47:37', 1, 1, 0, 0, 0, 11, 0, '0', '0'),
 (0, 'S62c86e57bb5385.63850489', 1, 15, '0000000013_TIK', 'VENTA', 150, 'SALIDA', 'TIK', 13, 1, '2022-07-08', '11:50:15', 1, 1, 0, 0, 0, 12, 0, '0', '0'),
-(0, 'S62c86e9fce5ce6.51213693', 1, 16, '0000000014_TIK', 'VENTA', 15, 'SALIDA', 'TIK', 14, 1, '2022-07-08', '11:51:27', 1, 1, 0, 0, 0, 13, 0, '0', '0');
+(0, 'S62c86e9fce5ce6.51213693', 1, 16, '0000000014_TIK', 'VENTA', 15, 'SALIDA', 'TIK', 14, 1, '2022-07-08', '11:51:27', 1, 1, 0, 0, 0, 13, 0, '0', '0'),
+(0, 'S62d598f1e92841.45699392', 1, 17, '0000000016_TIK', 'VENTA', 15, 'SALIDA', 'TIK', 16, 1, '2022-07-18', '11:31:29', 1, 1, 0, 0, 0, 14, 0, '0', '0'),
+(0, 'S62d59900375ec1.03254288', 1, 18, '0000000017_TIK', 'VENTA', 15, 'SALIDA', 'TIK', 17, 1, '2022-07-18', '11:31:44', 1, 1, 0, 0, 0, 15, 0, '0', '0');
 
 -- --------------------------------------------------------
 
@@ -3839,7 +3857,7 @@ ALTER TABLE `altclitocli`
 -- AUTO_INCREMENT de la tabla `apertura_caja`
 --
 ALTER TABLE `apertura_caja`
-  MODIFY `id_apertura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_apertura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `banco`
@@ -3917,7 +3935,7 @@ ALTER TABLE `consignacion_detalle`
 -- AUTO_INCREMENT de la tabla `controlcaja`
 --
 ALTER TABLE `controlcaja`
-  MODIFY `id_corte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_corte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `correlativo`
@@ -3941,7 +3959,7 @@ ALTER TABLE `cotizacion_detalle`
 -- AUTO_INCREMENT de la tabla `credito`
 --
 ALTER TABLE `credito`
-  MODIFY `id_credito` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_credito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `cuentas_por_pagar_abonos`
@@ -3965,7 +3983,7 @@ ALTER TABLE `cuenta_pagar`
 -- AUTO_INCREMENT de la tabla `detalle_apertura`
 --
 ALTER TABLE `detalle_apertura`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_compra`
@@ -4013,13 +4031,13 @@ ALTER TABLE `estante`
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `id_factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `factura_detalle`
 --
 ALTER TABLE `factura_detalle`
-  MODIFY `id_factura_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_factura_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `log_cambio_local`
@@ -4067,7 +4085,7 @@ ALTER TABLE `movimiento_caja_tipo`
 -- AUTO_INCREMENT de la tabla `movimiento_producto`
 --
 ALTER TABLE `movimiento_producto`
-  MODIFY `id_movimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_movimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `movimiento_producto_detalle`

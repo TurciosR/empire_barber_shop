@@ -125,7 +125,7 @@ if($cuenta > 0)
       // code...
       $nombre=$row["usuario"];
     }
-    $sql_monto = _query("SELECT SUM(total) as total FROM factura WHERE id_empleado = '$id_empleado' AND fecha = '$fecha_actual' AND anulada = 0 AND finalizada = 1 AND caja!=0 AND credito=0 AND id_sucursal='$id_sucursal'");
+    $sql_monto = _query("SELECT SUM(total) as total FROM factura WHERE id_empleado = '$id_empleado' AND fecha = '$fecha_actual' AND anulada = 0 AND finalizada = 1 AND caja!=0 AND id_sucursal='$id_sucursal'");
     //echo "SELECT SUM(subtotal) as monto FROM factura_detalle WHERE id_empleado = '$id_empleado' AND fecha = '$fecha_actual'";
 
     $row_monto = _fetch_array($sql_monto);
